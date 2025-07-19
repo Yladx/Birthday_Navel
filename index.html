@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Birthday Page -->
+  <div id="birthday-page" class="page active">
+    <div id="balloon-container"></div>
+    <audio id="birthday-bg-music" src="happy-birthday-334876.mp3" autoplay loop></audio>
+    <div class="birthday-content">
+      <div class="text-section">
+        <h1 class="birthday-title">Happy Birthday Lab!</h1>
+      </div>
+      <div class="image-section">
+        <div class="image-container">
+          <img src="birthday-person.jpg" alt="Birthday Person" class="person-image">
+          <div class="image-frame"></div>
+        </div>
+      </div>
+    </div>
+    <div class="click-hint">💌 Click to continue</div>
+  </div>
+
+  <!-- Letter Page -->
+  <div id="letter-page" class="page">
+    <div class="container">
+      <h1 id="anniversary-message">Loading...</h1>
+      <div class="audio-section">
+        <button id="play-audio" class="audio-btn">
+          <span class="audio-icon">🎵</span>
+          <span class="audio-text">Play Music</span>
+        </button>
+        <audio id="background-music" loop>
+          <source src="happy-birthday-334876.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <div id="signature">With all my love,<br>Your Partner</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html> 

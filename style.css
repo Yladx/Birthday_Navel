@@ -1,0 +1,493 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+#balloon-container {
+  height: 100vh;
+  padding: 1em;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  transition: opacity 500ms;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.balloon {
+  height: 125px;
+  width: 105px;
+  border-radius: 75% 75% 70% 70%;
+  position: relative;
+  pointer-events: none;
+}
+
+.balloon:before {
+  content: "";
+  height: 75px;
+  width: 1px;
+  padding: 1px;
+  background-color: #FDFD96;
+  display: block;
+  position: absolute;
+  top: 125px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.balloon:after {
+  content: "▲";
+  text-align: center;
+  display: block;
+  position: absolute;
+  color: inherit;
+  top: 120px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-300vh);
+    opacity: 0;
+  }
+}
+
+/* Enhanced Page Transitions */
+.page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateX(100%) scale(0.8) rotateY(-15deg);
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  perspective: 1000px;
+}
+
+.page.active {
+  opacity: 1;
+  transform: translateX(0) scale(1) rotateY(0deg);
+}
+
+.page.prev {
+  transform: translateX(-100%) scale(0.8) rotateY(15deg);
+}
+
+/* Birthday Page Styles */
+#birthday-page {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.7) 0%, transparent 50%),
+    linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+#birthday-page:hover {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
+    linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* Birthday Content Responsive Layout */
+.birthday-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .birthday-content {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .birthday-title {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+  .person-image {
+    width: 140px;
+    height: 140px;
+  }
+  .image-container {
+    margin: 0 auto;
+  }
+}
+
+.text-section {
+  text-align: left;
+}
+
+.image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive font size for birthday title */
+.birthday-title {
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  color: #2c3e50;
+  margin: 0;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: titleGlow 2s ease-in-out infinite alternate;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: titleAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards, titleGlow 2s ease-in-out infinite alternate 1.5s;
+}
+
+@media (max-width: 700px) {
+  .birthday-title {
+    font-size: clamp(1.3rem, 8vw, 2.2rem);
+    text-align: center;
+  }
+}
+
+@keyframes titleAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes titleGlow {
+  from {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  to {
+    text-shadow: 2px 2px 15px rgba(44, 62, 80, 0.3);
+  }
+}
+
+/* Birthday Image Styles */
+.image-container {
+  position: relative;
+  display: inline-block;
+  transform: scale(0.8) rotate(-5deg);
+  animation: imageFloat 3s ease-in-out infinite;
+  opacity: 0;
+  animation: imageAppear 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.8s forwards, imageFloat 3s ease-in-out infinite 2s;
+}
+
+@keyframes imageAppear {
+  to {
+    opacity: 1;
+    transform: scale(0.8) rotate(-5deg);
+  }
+}
+
+@keyframes imageFloat {
+  0%, 100% {
+    transform: scale(0.8) rotate(-5deg) translateY(0);
+  }
+  50% {
+    transform: scale(0.8) rotate(-5deg) translateY(-10px);
+  }
+}
+
+.person-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.person-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.image-frame {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 3px solid rgba(44, 62, 80, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: frameGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes frameGlow {
+  from {
+    border-color: rgba(44, 62, 80, 0.3);
+    box-shadow: 0 0 10px rgba(44, 62, 80, 0.2);
+  }
+  to {
+    border-color: rgba(44, 62, 80, 0.6);
+    box-shadow: 0 0 20px rgba(44, 62, 80, 0.4);
+  }
+}
+
+.click-hint {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  font-size: 1.2rem;
+  color: #2c3e5093;
+  background: none;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  opacity: 0.6;
+  animation: none;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Letter Page Styles */
+#letter-page {
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
+    linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transform: translateX(100%) scale(0.8) rotateY(-15deg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+#letter-page.active {
+  transform: translateX(0) scale(1) rotateY(0deg);
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 100px 50px 60px 80px;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(60,60,60,0.15), 0 1.5px 0 rgba(255, 255, 255, 0.8) inset;
+  text-align: left;
+  max-width: 520px;
+  width: 100%;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  font-family: 'Dancing Script', 'Segoe Script', cursive, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+  letter-spacing: 0.02em;
+  overflow: visible;
+  opacity: 0;
+  transform: scale(0.8) translateY(50px) rotateX(10deg);
+  animation: letterAppear 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.8s forwards;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-height: fit-content;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  #letter-page {
+    align-items: flex-start;
+    padding-top: 40px;
+    padding-bottom: 24px;
+  }
+  .container {
+    padding: 60px 6vw 32px 6vw;
+    max-width: 92vw;
+    min-width: 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    line-height: 1.6rem;
+    margin: 0 auto;
+  }
+  #anniversary-message {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+  #signature {
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+  }
+}
+
+@keyframes letterAppear {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotateX(0deg);
+  }
+}
+
+.container:before {
+  content: "";
+  position: absolute;
+  left: 48px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(200, 200, 200, 0.5) 0px,
+    rgba(200, 200, 200, 0.5) 16px,
+    transparent 16px,
+    transparent 32px
+  );
+  opacity: 0.3;
+}
+
+#anniversary-message {
+  color: #2c3e50;
+  margin: 0;
+  white-space: pre-line;
+  opacity: 0;
+  animation: messageFadeIn 1s ease 1.5s forwards;
+  font-size: 1.1rem;
+  line-height: 1.8rem;
+}
+
+@keyframes messageFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Audio Section Styles */
+.audio-section {
+  margin: 30px 0;
+  text-align: center;
+  opacity: 0;
+  animation: audioFadeIn 1s ease 1.8s forwards;
+}
+
+@keyframes audioFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.audio-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #2c3e50;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.audio-btn:hover {
+  background: rgba(44, 62, 80, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.audio-btn:active {
+  transform: translateY(0);
+}
+
+.audio-icon {
+  font-size: 1.2rem;
+  animation: musicNote 2s ease-in-out infinite;
+}
+
+@keyframes musicNote {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.audio-text {
+  font-weight: 600;
+}
+
+#signature {
+  margin-top: 30px;
+  color: #2c3e50;
+  font-style: italic;
+  opacity: 0;
+  animation: signatureFadeIn 1s ease 2.1s forwards;
+  font-size: 1rem;
+  line-height: 1.6rem;
+}
+
+@keyframes signatureFadeIn {
+  to {
+    opacity: 1;
+  }
+} 
